@@ -1,0 +1,30 @@
+<%- include('partials/nav') %>
+<h1>Hello, <%= username %>!</h1>
+<div class="stats">
+  <div class="card"><p class="muted"><i class="bi bi-cash-stack"></i>Total expenses</p><p class="stat">₱<%= total.toFixed(2) %></p></div>
+  <div class="card"><p class="muted"><i class="bi bi-calendar-month"></i>This month</p><p class="stat">₱<%= monthTotal.toFixed(2) %></p></div>
+  <div class="card"><p class="muted"><i class="bi bi-journal-text"></i>Records</p><p class="stat"><%= count %></p></div>
+  <div class="card"><p class="muted"><i class="bi bi-arrow-up-circle"></i>Highest expense</p><p class="stat">₱<%= highest.toFixed(2) %></p></div>
+</div>
+
+<div class="card">
+  <h2>Recent expenses</h2>
+  <% if (recent.length === 0) { %>
+    <p class="muted">No expenses yet. <a href="/expenses/new">Add your first one.</a></p>
+  <% } else { %>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th></tr>
+        <% recent.forEach(e => { %>
+          <tr>
+            <td class="nowrap"><%= e.date.toISOString().slice(0, 10) %></td>
+            <td><%= e.description %></td>
+            <td><span class="tag <%= e.category === 'Food' ? 'food' : e.category === 'Transportation' ? 'transportation' : e.category === 'School' ? 'school' : e.category === 'Shopping' ? 'shopping' : e.category === 'Bills' ? 'bills' : e.category === 'Entertainment' ? 'entertainment' : 'other' %>"><i class="bi <%= icons[e.category] %>"></i><%= e.category %></span></td>
+            <td class="nowrap">₱<%= e.amount.toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </table>
+    </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>
