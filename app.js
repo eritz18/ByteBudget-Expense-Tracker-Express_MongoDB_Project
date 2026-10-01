@@ -6,17 +6,17 @@ const connectDB = require('./config/db');
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false })); // read form data
-app.use(express.static('public'));                // serve css and js
-app.use(session({                                 // create sessions
+app.use(express.urlencoded({ extended: false })); 
+app.use(express.static('public'));
+app.use(session({                                
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { httpOnly: true, sameSite: 'lax' }      // sameSite helps block cross-site form posts
+  cookie: { httpOnly: true, sameSite: 'lax' }
 }));
 
 app.use(require('./routes/auth'));
-app.use('/profile', require('./routes/profile'));   // protected by requireLogin inside the file
+app.use('/profile', require('./routes/profile'));
 app.use(require('./routes/expenses'));
 
 //Error handler
