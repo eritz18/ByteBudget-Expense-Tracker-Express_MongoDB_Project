@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in - ByteBudget</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<main class="container auth">
+  <div class="card">
+    <h1>ByteBudget</h1>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form method="POST" action="/login">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="e.g. John123" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="......" required>
+      </div>
+      <button class="btn" type="submit">Log in</button>
+    </form>
+    <p class="muted">New here? <a href="/register">Create an account</a></p>
+  </div>
+</main>
+</body>
+</html>
