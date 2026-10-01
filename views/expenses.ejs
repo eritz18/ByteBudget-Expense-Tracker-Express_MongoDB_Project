@@ -1,0 +1,46 @@
+<%- include('partials/nav') %>
+<h1>Expenses</h1>
+
+<form class="card filters" method="GET" action="/expenses">
+  <input type="text" name="search" placeholder="Search description" value="<%= search %>">
+  <select name="category">
+    <option value="">All categories</option>
+    <% categories.forEach(c => { %>
+      <option value="<%= c %>" <%= c === category ? 'selected' : '' %>><%= c %></option>
+    <% }) %>
+  </select>
+  <input type="date" name="date" value="<%= date %>">
+  <button class="btn" type="submit"><i class="bi bi-funnel"></i>Filter</button>
+  <a class="btn light" href="/expenses"><i class="bi bi-x-lg"></i>Clear</a>
+</form>
+
+<div class="card">
+  <p><strong>Total shown: ₱<%= total.toFixed(2) %></strong></p>
+  <% if (expenses.length === 0) { %>
+    <p class="muted">No expenses found.</p>
+  <% } else { %>
+    <div class="table-wrap">
+      <table style="min-width: 44rem;">
+        <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Notes</th><th></th></tr>
+        <% expenses.forEach(e => { %>
+          <tr>
+            <td class="nowrap"><%= e.date.toISOString().slice(0, 10) %></td>
+            <td><%= e.description %></td>
+            <td><span class="tag <%= e.category === 'Food' ? 'food' : e.category === 'Transportation' ? 'transportation' : e.category === 'School' ? 'school' : e.category === 'Shopping' ? 'shopping' : e.category === 'Bills' ? 'bills' : e.category === 'Entertainment' ? 'entertainment' : 'other' %>"><i class="bi <%= icons[e.category] %>"></i><%= e.category %></span></td>
+            <td class="nowrap">₱<%= e.amount.toFixed(2) %></td>
+            <td><%= e.notes %></td>
+            <td>
+              <div class="actions">
+                <a class="btn small light" href="/expenses/<%= e._id %>/edit"><i class="bi bi-pencil-square"></i>Edit</a>
+                <form method="POST" action="/expenses/<%= e._id %>/delete" data-confirm="Delete this expense?">
+                  <button class="btn small danger" type="submit"><i class="bi bi-trash"></i>Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </table>
+    </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>
