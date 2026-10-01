@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - ByteBudget</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<main class="container auth auth-wide">
+  <div class="card">
+    <h1>Create an account</h1>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form class="form-grid" method="POST" action="/register">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" placeholder="John Doe" required value="<%= form.name || '' %>">
+      </div>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="e.g. John123" required value="<%= form.username || '' %>">
+      </div>
+      <div class="field full">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" placeholder="john@example.com" required value="<%= form.email || '' %>">
+      </div>
+      <div class="field">
+        <label for="password">Password (at least 6 characters)</label>
+        <input id="password" type="password" name="password" placeholder="......" required minlength="6">
+      </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" name="confirmPassword" placeholder="......" required minlength="6">
+      </div>
+      <div class="full">
+        <button class="btn" type="submit">Create account</button>
+      </div>
+    </form>
+    <p class="muted">Already have an account? <a href="/login">Log in</a></p>
+  </div>
+</main>
+</body>
+</html>
